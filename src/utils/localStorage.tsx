@@ -13,6 +13,19 @@ export interface Comment {
   date: string;
 }
 
+export interface ReactionCounts {
+  [key: number]: Reaction | null;
+}
+
+export enum Reaction {
+  SMILE = '🙂',
+  HEART = '❤️',
+  LAUGH = '😂',
+  ANGRY = '😡',
+  THUMBS_UP = '👍🏻',
+  FIRE = '🔥'
+}
+
 export const getPosts = (): Post[] => {
   const storedPosts = localStorage.getItem('posts');
   return storedPosts ? JSON.parse(storedPosts) : [];
@@ -43,4 +56,13 @@ export const deleteComment = (commentId: number) => {
   const comments: Comment[] = JSON.parse(localStorage.getItem('comments') || '[]');
   const updatedComments = comments.filter(comment => comment.id !== commentId);
   localStorage.setItem('comments', JSON.stringify(updatedComments));
+};
+
+export const getReactions = (): ReactionCounts => {
+  const storedReactions = localStorage.getItem('reactions');
+  return storedReactions ? JSON.parse(storedReactions) : {};
+};
+
+export const saveReactions = (reactions: ReactionCounts) => {
+  localStorage.setItem('reactions', JSON.stringify(reactions));
 };
