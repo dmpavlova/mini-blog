@@ -10,7 +10,6 @@ interface ReactionBarProps {
 }
 
 const ReactionBar: React.FC<ReactionBarProps> = ({
-  postId,
   selectedReaction,
   onReactionSelect,
   reactionCounts
