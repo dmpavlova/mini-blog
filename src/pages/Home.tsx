@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PostList from '../components/PostList'; 
+import PostCard from '../components/PostCard'; 
 import { getPosts, Post } from '../utils/localStorage';
-import { Button, Typography, Stack } from '@mui/material';
+import { Button, Typography, Stack, Grid } from '@mui/material';
 import CustomModal from '../components/CustomModal';
 
 const Home: React.FC = () => {
@@ -20,15 +20,21 @@ const Home: React.FC = () => {
     setShowModal(true);
   };
 
+  const handleModalClose = () => {
+    setShowModal(false);
+    const updatedPosts = getPosts();
+    setPosts(updatedPosts);
+  };
+
   return (
     <Stack 
-    direction="column"
-    spacing={12}
-    sx={{
-      height: '100vh', 
-      paddingTop: 2,
-      backgroundColor: "#F1EFEC",
-    }}>      
+      direction="column"
+      spacing={12}
+      sx={{
+        height: '100vh', 
+        paddingTop: 2,
+        backgroundColor: "#F1EFEC",
+      }}>      
       <Stack
         direction="row"
         sx={{
@@ -37,15 +43,19 @@ const Home: React.FC = () => {
           padding: 2,
         }}
       >
-      <Typography variant="h5" gutterBottom color='#3D90D7'>
-        Мини-блог
-      </Typography>
-      <Button variant="contained" onClick={handleCreatePost}>+ Создать пост</Button>
+        <Typography variant="h5" gutterBottom color='#3D90D7'>
+          Мини-блог
+        </Typography>
+        <Button variant="contained" onClick={handleCreatePost}>+ Создать пост</Button>
       </Stack>
-      <Stack sx={{padding: 12}}>
-      <PostList posts={posts} setPosts={setPosts} />
-      </Stack>
-      <CustomModal open={showModal} onClose={() => setShowModal(false)} postId={postId} />
+      <Grid container spacing={2} sx={{ padding: 2 }}>
+        {posts.map(post => (
+          <Grid key={post.id} size={{ xs: 12, md: 4 }}>
+            <PostCard post={post} setPosts={setPosts} />
+          </Grid>
+        ))}
+      </Grid>
+      <CustomModal open={showModal} onClose={handleModalClose} postId={postId} />
     </Stack>
   );
 };
