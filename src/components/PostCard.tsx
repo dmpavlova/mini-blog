@@ -59,8 +59,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, setPosts }) => {
       <Card>
         <CardContent>
           <CardActionArea onClick={() => handleViewClick(post.id)}>
-            <Typography variant="h4">{post.title}</Typography>
-            <Typography variant="body2">{post.content.slice(0, 150) + "..."}</Typography>
+            <Typography variant="h5">{post.title}</Typography>
+            <Typography variant="body2" sx={{ marginTop: 3 }}>{post.content.slice(0, 150) + "..."}</Typography>
           </CardActionArea>
           <Stack direction="row" sx={{ justifyContent: "space-between", alignItems: "center", padding: 2 }}>
             <Badge badgeContent={getCommentCount()} color="primary">
