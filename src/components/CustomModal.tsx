@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Box, Button } from '@mui/material';
+import { Modal, Box, Typography } from '@mui/material';
 import PostForm from '../components/PostForm';
 
 interface CustomModalProps {
@@ -24,10 +24,8 @@ const CustomModal: React.FC<CustomModalProps> = ({ open, onClose, postId }) => {
           width: "80%",
         }}
       >
-        <PostForm postId={postId ?? undefined} onClose={onClose} />
-        <Button onClick={onClose} color="primary" variant="outlined" sx={{ marginTop: 2 }}>
-          Закрыть
-        </Button>
+        <Typography variant="h5" sx={{ marginBottom: 2 }}>{postId ? 'Редактировать пост' : 'Создать пост'}</Typography>
+        <PostForm postId={postId ?? undefined} onClose={onClose} />        
       </Box>
     </Modal>
   );

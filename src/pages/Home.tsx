@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard'; 
-import { getPosts, Post } from '../utils/localStorage';
+import { Post } from '../types/types';
+import { getPosts } from '../utils/localStorage';
 import { Button, Typography, Stack, Grid } from '@mui/material';
 import CustomModal from '../components/CustomModal';
 
@@ -11,7 +12,6 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const savedPosts = getPosts();
-    console.log('Загруженные посты:', savedPosts);
     setPosts(savedPosts);
   }, []);
 

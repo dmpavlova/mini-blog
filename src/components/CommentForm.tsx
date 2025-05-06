@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
-import { addComment, Comment } from '../utils/localStorage';
+import { addComment } from '../utils/localStorage';
+import { Comment } from '../types/types';
 
 interface CommentFormProps {
   postId: number;
@@ -27,7 +28,11 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, onCommentAdded }) => 
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 2 }}>
+    <Box 
+    component="form" 
+    onSubmit={handleSubmit} 
+    sx={{ marginBottom: 2, display: 'flex', flexDirection: 'column', width: '50vw', gap: '10px' }}
+    >
       <TextField
         required
         label="Автор"

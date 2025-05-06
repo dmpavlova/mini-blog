@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { getPosts, deletePost, getComments, deleteComment, Reaction, saveReactions, getReactions } from '../utils/localStorage'; 
-import { Post, Comment } from '../utils/localStorage'; 
-import { Button, Typography, Stack, List, ListItem, ListItemText } from '@mui/material';
+import { getPosts, deletePost, getComments, deleteComment, saveReactions, getReactions } from '../utils/localStorage'; 
+import { Post, Comment, Reaction } from '../types/types'; 
+import { IconButton , Typography, Stack, List, ListItem, ListItemText } from '@mui/material';
 import CustomModal from '../components/CustomModal';
 import CommentForm from '../components/CommentForm';
 import ReactionBar from '../components/ReactionBar';
 import ConfirmDeletion from '../components/ConfirmDeletion';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const PostDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>(); 
@@ -62,12 +65,27 @@ const PostDetail: React.FC = () => {
   };
 
   return (
-    <Stack spacing={3} sx={{ padding: 12 }}>
+    <Stack spacing={3} sx={{ padding: 12, width: "70vw", margin: "auto" }}>
       {post ? (
         <>
+        <Stack direction="row" sx={{ justifyContent: "space-between" }}>
+          <IconButton  component={Link} to="/" >
+            <ArrowBackIcon />
+          </IconButton >
+          <Stack direction="row" spacing={1}>
+            <IconButton onClick={() => setShowEditForm(true)}>
+              <EditIcon />
+            </IconButton >
+            <IconButton onClick={() => setShowConfirmDialog(true)}>
+              <DeleteIcon />
+            </IconButton >
+          </Stack>
+        </Stack>
+         
           <Typography variant="h4">{post.title}</Typography>
           <Typography variant="body1">{post.content}</Typography>
 
+          <Typography variant="h5">Реакции</Typography>
           <ReactionBar 
             postId={post.id} 
             selectedReaction={reactions[postId]} 
@@ -78,18 +96,10 @@ const PostDetail: React.FC = () => {
             }, {} as { [key in Reaction]: number })}
           />
 
-          <Stack direction="row" spacing={1}>
-            <Button variant="contained" onClick={() => setShowEditForm(true)}>
-              Редактировать пост
-            </Button>
-            <Button variant="contained" color="error" onClick={() => setShowConfirmDialog(true)}>
-              Удалить пост
-            </Button>
-          </Stack>
           
-          <CommentForm postId={postId} onCommentAdded={handleCommentAdded} />
 
           <Typography variant="h5">Комментарии</Typography>
+          <CommentForm postId={postId} onCommentAdded={handleCommentAdded} />          
           <List>
             {comments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map(comment => (
               <ListItem key={comment.id}>
@@ -97,14 +107,10 @@ const PostDetail: React.FC = () => {
                   primary={<strong>{comment.author}</strong>} 
                   secondary={comment.text}
                   />
-                <Button color="error" onClick={() => handleDeleteComment(comment.id)}>Удалить</Button>
+                <IconButton onClick={() => handleDeleteComment(comment.id)}><DeleteIcon /></IconButton >
               </ListItem>
             ))}
-          </List>
-          
-          <Button component={Link} to="/" color="primary">
-            Назад к списку постов
-          </Button>
+          </List>         
 
           <CustomModal open={showEditForm} onClose={() => setShowEditForm(false)} postId={postId} />
           <ConfirmDeletion 

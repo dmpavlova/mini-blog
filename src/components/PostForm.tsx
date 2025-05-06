@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { savePosts, getPosts } from '../utils/localStorage'; 
-import { Button, TextField, Box, Stack } from '@mui/material';
+import { Button, TextField, Box, Stack, Typography } from '@mui/material';
 
 interface Post {
   id: number;
@@ -69,12 +69,19 @@ const PostForm: React.FC<{ postId?: number; onClose: () => void }> = ({ postId, 
           multiline
           rows={5}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.length <= 500) {
+              setContent(e.target.value);
+            }
+          }}
           required
         />
+        <Typography variant="body2" color="textSecondary">
+          {`${content.length} / 500`}
+        </Typography>
         <Stack direction="row" spacing={1} justifyContent="flex-end"> 
-          <Button type="submit">{postId ? 'Сохранить' : 'Создать'}</Button>
-          <Button type="button" onClick={onClose}>Отменить</Button>
+          <Button type="submit" variant='outlined'>{postId ? 'Сохранить' : 'Добавить'}</Button>
+          <Button type="button" onClick={onClose} variant='outlined'>Закрыть</Button>
         </Stack>
       </Stack>
     </Box>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconButton, Stack } from '@mui/material';
-import { Reaction } from '../utils/localStorage';
+import { Reaction } from '../types/types';
 
 interface ReactionBarProps {
   postId: number;
