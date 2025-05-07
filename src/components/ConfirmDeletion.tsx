@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from "react";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
 interface ConfirmDialogProps {
@@ -9,7 +9,7 @@ interface ConfirmDialogProps {
   message?: string;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({ open, onClose, onConfirm, title = "Подтверждение", message = "Вы уверены, что хотите удалить этот пост?" }) => {
+const ConfirmDialog: FC<ConfirmDialogProps> = ({ open, onClose, onConfirm, title = "Подтверждение", message = "Вы уверены, что хотите удалить этот пост?" }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{title}</DialogTitle>

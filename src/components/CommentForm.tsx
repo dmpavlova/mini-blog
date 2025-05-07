@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import type { FC } from "react";
 import { Button, TextField, Box } from '@mui/material';
 import { addComment } from '../utils/localStorage';
 import { Comment } from '../types/types';
@@ -8,7 +9,7 @@ interface CommentFormProps {
   onCommentAdded: () => void;
 }
 
-const CommentForm: React.FC<CommentFormProps> = ({ postId, onCommentAdded }) => {
+const CommentForm: FC<CommentFormProps> = ({ postId, onCommentAdded }) => {
   const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
 

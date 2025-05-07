@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FC } from 'react';
 import { savePosts, getPosts } from '../utils/localStorage'; 
 import { Button, TextField, Box, Stack, Typography } from '@mui/material';
 
@@ -8,7 +9,7 @@ interface Post {
   content: string;
 }
 
-const PostForm: React.FC<{ postId?: number; onClose: () => void }> = ({ postId, onClose }) => {
+const PostForm: FC<{ postId?: number; onClose: () => void }> = ({ postId, onClose }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 

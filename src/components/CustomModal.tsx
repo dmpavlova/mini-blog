@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC } from 'react';
 import { Modal, Box, Typography } from '@mui/material';
 import PostForm from '../components/PostForm';
 
@@ -8,7 +8,7 @@ interface CustomModalProps {
   postId: number | null;
 }
 
-const CustomModal: React.FC<CustomModalProps> = ({ open, onClose, postId }) => {
+const CustomModal: FC<CustomModalProps> = ({ open, onClose, postId }) => {
   return (
     <Modal open={open} onClose={onClose}>
       <Box 

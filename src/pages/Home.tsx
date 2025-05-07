@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { FC } from "react";
 import PostCard from '../components/PostCard'; 
 import { Post } from '../types/types';
 import { getPosts } from '../utils/localStorage';
 import { Button, Typography, Stack, Grid } from '@mui/material';
 import CustomModal from '../components/CustomModal';
 
-const Home: React.FC = () => {
+const Home: FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [postId, setPostId] = useState<number | null>(null);

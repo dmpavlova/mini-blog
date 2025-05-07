@@ -1,18 +1,13 @@
-import React from 'react';
-import { IconButton, Stack } from '@mui/material';
-import { Reaction } from '../types/types';
+import type { FC } from "react";
+import { IconButton, Stack } from "@mui/material";
+import { Reaction } from "../types/types";
+import { ReactionBarProps } from "../types/types";
 
-interface ReactionBarProps {
-  postId: number;
-  selectedReaction: Reaction | null;
-  onReactionSelect: (reaction: Reaction) => void;
-  reactionCounts: { [key in Reaction]: number };
-}
-
-const ReactionBar: React.FC<ReactionBarProps> = ({
+const ReactionBar: FC<ReactionBarProps> = ({
   selectedReaction,
   onReactionSelect,
-  reactionCounts
+  reactionCounts,
+  size = "large",
 }) => {
   return (
     <Stack direction="row" spacing={1}>
@@ -21,10 +16,12 @@ const ReactionBar: React.FC<ReactionBarProps> = ({
           key={reaction}
           onClick={() => onReactionSelect(reaction)}
           style={{
-            borderRadius: '50%',
-            backgroundColor: selectedReaction === reaction ? '#e0f7fa' : 'transparent',
-            border: selectedReaction === reaction ? '2px solid #00796b' : 'none',
-            color: selectedReaction === reaction ? '#00796b' : 'black'
+            borderRadius: "40%",
+            backgroundColor:
+              selectedReaction === reaction ? "#4ED7F1" : "#D1E9F6",
+            color: selectedReaction === reaction ? "black" : "#6b6b6b",
+            fontSize: size === "small" ? "0.75rem" : "1.1rem",
+            padding: size === "small" ? "4px" : "8px",
           }}
         >
           {reaction} {reactionCounts[reaction]}
